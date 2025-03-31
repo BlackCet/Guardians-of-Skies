@@ -15,6 +15,7 @@ A robust object detection system capable of identifying and localizing **militar
 - [Technology Stack](#technology-stack)  
 - [Usage](#usage)  
 - [Dataset](#dataset)  
+- [Deployment](#deployment)  
 - [Contributors](#contributors)  
 
 ---
@@ -56,6 +57,11 @@ https://www.kaggle.com/datasets/a2015003713/militaryaircraftdetectiondataset/dat
 
 ---
 
+## **Deployment** 🚀  
+🔗 **Live Demo:** [Guardians of Skies](https://guardiansofskies.streamlit.app/)  
+
+---
+
 ## **Contributors** 👨‍💻👩‍💻  
 
 ### **Team Name: YoloSphere** ⚔️🗻  
@@ -69,4 +75,4 @@ https://www.kaggle.com/datasets/a2015003713/militaryaircraftdetectiondataset/dat
 
 ---
 
-🔥 **_We protect the skies like ancient guardians!_** 🔥  
+🔥 **_We protect the skies like ancient guardians!_** 🔥
