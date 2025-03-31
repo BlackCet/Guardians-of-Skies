@@ -1,0 +1,8 @@
+streamlit
+opencv-python
+torch
+numpy
+ultralytics
+matplotlib
+python-dotenv
+pillow
