@@ -1,10 +1,9 @@
 streamlit
-opencv-python
 opencv-python-headless
-torch
-numpy
 ultralytics
+torch==2.2.0
+numpy
 matplotlib
 Pillow
-python-dotenv
 gdown
+python-dotenv
