@@ -29,47 +29,11 @@ enemy_classes = ["CH47", "CL415", "Ka27", "Ka52", "A400M","KAAN", "KJ600","H6", 
                  "Mig29", "Mig31", "Mirage2000", "P3", "RQ4", "Rafale", "SR71", 
                  "Su24", "Su25", "Su34", "Su57", "Mi24", "Mi26", "AH64", "E2", "MQ9", "V22", "XB70", "U2", "JF17"]
 
-"""def process_image(image):
-    results = model(image)
-    image = np.array(image)
-    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-    enemy_detected = False
-    
-    for result in results:
-        for box in result.boxes:
-            x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())  
-            class_id = int(box.cls[0].item())  
-            confidence = box.conf[0].item()  
-            class_name = model.names[class_id] if class_id < len(model.names) else "Unknown"
-            
-            if class_name in friend_classes:
-                color, label_text = (0, 255, 0), "Friend"
-            elif class_name in enemy_classes:
-                color, label_text = (0, 0, 255), "Enemy"
-                enemy_detected = True
-            else:
-                color, label_text = (255, 255, 255), "Unknown"
-            
-            cv2.rectangle(image, (x1, y1), (x2, y2), color, 3, cv2.LINE_AA)
-            font_scale, thickness = 0.7, 2
-            label = f"{class_name} {confidence:.2f}"
-            (text_w, text_h), baseline = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, thickness)
-            text_x, text_y = max(x1, 10), max(y1 - 10, text_h + 10)
-            box_coords = ((text_x, text_y - text_h - 5), (text_x + text_w, text_y + baseline))
-            overlay = image.copy()
-            cv2.rectangle(overlay, box_coords[0], box_coords[1], color, -1)
-            cv2.addWeighted(overlay, 0.4, image, 0.6, 0, image)
-            cv2.putText(image, label, (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (255, 255, 255), thickness, cv2.LINE_AA)
-            label_font_scale, label_thickness = 0.6, 2
-            label_x, label_y = min(x2 + 10, image.shape[1] - 80), max(y1 + 20, text_h + 20)
-            cv2.putText(image, label_text, (label_x, label_y), cv2.FONT_HERSHEY_SIMPLEX, label_font_scale, color, label_thickness, cv2.LINE_AA)
-    
-    return image, enemy_detected"""
+
 
 def process_image(image):
-    # Convert to numpy and ensure it’s in BGR format for OpenCV/YOLO
     image_np = np.array(image.convert("RGB"))
-    results = model(image_np)  # Proper numpy array passed here
+    results = model(image_np)  
 
     image_cv = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
     enemy_detected = False
