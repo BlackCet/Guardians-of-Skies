@@ -1,7 +1,7 @@
 streamlit
 opencv-python-headless==4.8.1.78
 ultralytics
-torch==2.2.0
+torch
 numpy
 matplotlib
 Pillow
