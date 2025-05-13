@@ -29,15 +29,17 @@ enemy_classes = ["CH47", "CL415", "Ka27", "Ka52", "A400M","KAAN", "KJ600","H6", 
                  "Mig29", "Mig31", "Mirage2000", "P3", "RQ4", "Rafale", "SR71", 
                  "Su24", "Su25", "Su34", "Su57", "Mi24", "Mi26", "AH64", "E2", "MQ9", "V22", "XB70", "U2", "JF17"]
 
-
-
 def process_image(image):
     image_np = np.array(image.convert("RGB"))
-    results = model(image_np)  
+    if image_np.ndim == 2:
+        image_np = cv2.cvtColor(image_np, cv2.COLOR_GRAY2RGB)
+    elif image_np.shape[2] == 4:
+        image_np = cv2.cvtColor(image_np, cv2.COLOR_RGBA2RGB)
 
+    results = model.predict(image_np)
     image_cv = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
     enemy_detected = False
-    
+
     for result in results:
         for box in result.boxes:
             x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
@@ -60,7 +62,6 @@ def process_image(image):
 
     return image_cv, enemy_detected
 
-
 def display_image(image):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     img_bytes = BytesIO()
@@ -74,13 +75,16 @@ def main():
     uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png", "bmp", "tiff"])
     
     if uploaded_image is not None:
-        image = Image.open(uploaded_image)
-        processed_image, enemy_detected = process_image(image)
-        display_image(processed_image)
-        if enemy_detected:
-            st.error("🚨 Enemy aircraft detected! 🚨", icon="⚠️")
-        else:
-            st.success("All clear! No enemy aircraft detected.", icon="✅")
+        try:
+            image = Image.open(uploaded_image)
+            processed_image, enemy_detected = process_image(image)
+            display_image(processed_image)
+            if enemy_detected:
+                st.error("🚨 Enemy aircraft detected! 🚨", icon="⚠️")
+            else:
+                st.success("All clear! No enemy aircraft detected.", icon="✅")
+        except Exception as e:
+            st.error(f"Processing failed: {str(e)}")
 
 if __name__ == "__main__":
     main()
